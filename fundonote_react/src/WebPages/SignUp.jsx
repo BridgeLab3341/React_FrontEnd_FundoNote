@@ -3,7 +3,7 @@ import './SignUp.css';
 import images from '../assets/SignUpImage.jpg';
 // import TextField from '@mui/material/TextField';
 // or
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
  function SignUp() {
     return (
@@ -66,7 +66,7 @@ import { TextField } from '@mui/material';
                                 <a href="./SignIn.html">sign in instead</a>
                             </div>
                             <div className="button">
-                                <button className="Next">Next</button>
+                                <Button variant="outlined">Next</Button>
                             </div>
                         </div>
                     </div>

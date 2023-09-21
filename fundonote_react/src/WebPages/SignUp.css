@@ -72,7 +72,6 @@ span.spanText {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: flex-start;
-    /* padding-left: 13px; */
     padding-top: 15px;
     
     width: 100%;
@@ -82,6 +81,8 @@ span.spanText {
 p.txt-message {
     font-family: Arial, Helvetica, sans-serif; 
     font-size: 13px;
+    display: flex;
+    justify-content: flex-start;
 }
 label.show.Password {
     font-family: Arial, Helvetica, sans-serif; 
@@ -97,8 +98,8 @@ img {
     display: flex;
     width: 200px;
     height: 177px;
+    padding-right: 25px;
 }
-
 .image-content{
     width: 30%;
 }
@@ -137,9 +138,7 @@ input[type=email]{
     height: 37px;
 }
 .cuseremail{
-    width: 98%;
     height: 42px;
-    
 }
 .fpass{
     display: flex;
@@ -156,4 +155,12 @@ input[type=email]{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-top: 20px;
+    height: 10%;
+    width: 100%;
+}
+.button{
+    background-color: rgb(24, 24, 117);
+    color: white;
+    height: 26%;
 }

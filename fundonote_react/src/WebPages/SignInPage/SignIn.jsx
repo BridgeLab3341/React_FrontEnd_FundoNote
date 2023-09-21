@@ -1,41 +1,45 @@
 import React from "react";
+import './SignIn.css'
+import { Button, TextField } from "@mui/material";
 
 function SignIn(){
     return (
-        <div class="signmain">
-        <div class="main-container">
-            <div class="container">
-                <div class="fundo">
-                    <p class="f">F</p>
-                    <p class="u">u</p>
-                    <p class="n">n</p>
-                    <p class="d">d</p>
-                    <p class="o">o</p>
-                    <p class="N">N</p>
-                    <p class="o">o</p>
-                    <p class="t">t</p>
-                    <p class="e">e</p>
+        <div className="signmain">
+        <div className="main-container">
+            <div className="container">
+                <div className="fundo">
+                    <p className="f">F</p>
+                    <p className="u">u</p>
+                    <p className="n">n</p>
+                    <p className="d">d</p>
+                    <p className="o">o</p>
+                    <p className="N">N</p>
+                    <p className="o">o</p>
+                    <p className="t">t</p>
+                    <p className="e">e</p>
                 </div>
-                <div class="login">Login</div>
-                <div class="text-message">
-                    <p class="mess">Use Your FundoNote Account</p>
+                <div className="login">Login</div>
+                <div className="text-message">
+                    <p className="mess">Use Your FundoNote Account</p>
                 </div>
-                <div class="form-content">
-                    <div class="username">
-                        <input type="text" id="email" name="email" placeholder="Email or phone"/>
+                <div className="form-content">
+                    <div className="username">
+                        <TextField id="email" label="Email or Phone" variant="outlined" size="small" required/>
                     </div>
-                    <div class="pass">
-                        <input type="text" id="password" name="password" placeholder="Password"/>
+                    <div className="pass">
+                    <TextField id="password" label="Password" variant="outlined" size="small" required/>
                     </div>
-                    <div class="forgot">
-                        <div class="formess">
+                    <div className="forgot">
+                        <div className="formess">
                             <a href="./">Forgot Password?</a>
                         </div>
                     </div>
-                    <div class="cracco">
+                    <div className="cracc">
+                        <div className="linkm">
                         <a href="./SignUp.html">Create account</a>
-                        <div class="button">
-                            <button class="fLogin">Login</button>
+                        </div>
+                        <div className="button">
+                            <Button class="fLogin">Login</Button>
                         </div>
                     </div>
                 </div>
@@ -44,3 +48,5 @@ function SignIn(){
     </div>
     )
 }
+
+export default SignIn
