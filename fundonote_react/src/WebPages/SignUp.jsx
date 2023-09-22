@@ -1,12 +1,95 @@
 import React,{useState} from "react";
 import './SignUp.css';
-import images from '../assets/SignUpImage.jpg';
-// import TextField from '@mui/material/TextField';
-// or
+import images from '../assets/SignUpImage.jpg'
 import { Button, TextField } from '@mui/material';
-//import { validFirstName,validLastName,validEmail,validPassword } from './WebPages/Regex/Validations';
+const validFirstName =new RegExp('^[A-Z]{1,}[A-Za-z]{3,}$');
+const validLastName=new RegExp('^[A-Za-z]{1,}$');
+const validEmail=new RegExp('[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+const validPassword=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
 
 function SignUp() {
+
+    const[data,setData]=useState({firstName:'',lastName:'',email:'',password:''});
+    const[validationObj,setvalidationObj]=useState({firstNameBorder:false,firstNameHelper:'',lastNameBorder:false,lastNameHelper:'',emailBorder: false, emailHelper: '', passBorder: false, passHelper:''})
+
+    const handleFirstName=(firstName)=>{
+        setData(prevState => (
+            {
+                ...prevState,
+                firstName:firstName.target.value
+            }
+        ))
+    }
+    const handleLastName=(lastName)=>{
+        setData(prevState =>(
+            {
+                ...prevState,
+                lastName:lastName.target.value
+            }
+        ))
+    }
+    const handleEmail=(email)=>{
+        setData(prevState=>(
+            {
+                ...prevState,
+                email:email.target.value
+            }
+        ))
+    }
+    const handlePassword=(password)=>{
+        setData(prevState=>(
+            {
+                ...prevState,
+                password:password.target.value
+            }
+        ))
+    }
+    console.log(data);
+
+    const verifySignUpData=()=>{
+        let checkFirstName=validFirstName.test(data.firstName)
+        let checkLastName=validLastName.test(data.lastName)
+        let checkEmail=validEmail.test(data.email)
+        let checkPass=validPassword.test(data.password)
+
+        if(checkFirstName === false){
+            setvalidationObj(prevState=>(
+                {
+                    ...prevState,
+                    firstNameBorder:true,
+                    firstNameHelper:'FirstName Should start with captial letter'
+                }
+            ))
+        }
+        if(checkLastName===false){
+            setvalidationObj(prevState=>(
+                {
+                    ...prevState,
+                    lastNameBorder:true,
+                    lastNameHelper:'LastName sholud contain one character atleast'
+                }
+            ))
+        }
+        if(checkEmail===false){
+            setvalidationObj(prevState=>(
+                {
+                    ...prevState,
+                    emailBorder:true,
+                    emailHelper:'Enter a valid email'
+                }
+            ))
+        }
+        if(checkPass===false){
+            setvalidationObj(prevState=>(
+                {
+                    ...prevState,
+                    passBorder:true,
+                    passHelper:'Password Sholud be atleast 8 characters'
+                }
+            ))
+        }
+    }
+
     return (
         <div className="signupPage">
             <div className="main">
@@ -28,15 +111,16 @@ function SignUp() {
                     <div className="content">
                         <div className="cname">
                             <div className="fNameBox">
-                            <TextField id="fName" label="First Name" variant="outlined" size="small" required/>                     
+                              <TextField id="fName" label="First Name" onChange={handleFirstName} error={validationObj.firstNameBorder} helperText={validationObj.firstNameHelper} variant="outlined" size="small" required/>
+                                                 
                         </div>
                             <div className="lNameBox">
-                                <TextField id="lName" label="Last Fame" variant="outlined" size="small" required/>
+                                <TextField id="lName" label="Last Fame" onChange={handleLastName} error={validationObj.lastNameBorder} helperText={validationObj.lastNameHelper} variant="outlined" size="small" required/>
                             </div>
                         </div>
                         <div className="cuser">
                             <div className="cuseremail">
-                                <TextField id="fuser" label="User Name" variant="outlined" size="small" required />
+                                <TextField id="fuser" label="User Name" onChange={handleEmail} error={validationObj.emailBorder} helperText={validationObj.emailHelper} variant="outlined" size="small" required />
                             </div>
                             <div>
                                 <span className="spanText">You can use Letters,numbers & periods</span>
@@ -47,7 +131,7 @@ function SignUp() {
                         </div>
                         <div className="cpass">
                             <div className="fpass">
-                                <TextField id="fPassword" label="Password" variant="outlined" size="small" required/>
+                                <TextField id="fPassword" label="Password" onChange={handlePassword} error={validationObj.passBorder} helperText={validationObj.passHelper} variant="outlined" size="small" required/>
                                 <TextField id="fconfPass" label="Confirm Password" variant="outlined" size="small" required />
                             </div>
                             <div>
@@ -67,7 +151,7 @@ function SignUp() {
                                 <a href="./SignIn.html">sign in instead</a>
                             </div>
                             <div className="button">
-                                <Button variant="outlined">Next</Button>
+                                <Button onClick={verifySignUpData} variant="outlined">Next</Button>
                             </div>
                         </div>
                     </div>
