@@ -1,11 +1,12 @@
-import React from "react";
+import React,{useState} from "react";
 import './SignUp.css';
 import images from '../assets/SignUpImage.jpg';
 // import TextField from '@mui/material/TextField';
 // or
 import { Button, TextField } from '@mui/material';
+//import { validFirstName,validLastName,validEmail,validPassword } from './WebPages/Regex/Validations';
 
- function SignUp() {
+function SignUp() {
     return (
         <div className="signupPage">
             <div className="main">
@@ -79,6 +80,5 @@ import { Button, TextField } from '@mui/material';
             </div>
         </div>
     )
-
 }
 export default SignUp
