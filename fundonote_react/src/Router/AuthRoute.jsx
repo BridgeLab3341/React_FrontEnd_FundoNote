@@ -8,5 +8,5 @@ export const AuthRoute = ({children})=>{
         return children;
     }
     return <Navigate to='/dashboard'/>;
-    console.log('true');
+    //console.log('true');
 }
