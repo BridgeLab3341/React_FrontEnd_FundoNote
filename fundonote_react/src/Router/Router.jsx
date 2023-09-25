@@ -11,7 +11,7 @@ export const Router=()=>{
                 <Routes>
                     <Route exact path={"/"} element={<SignIn/>} ></Route>    
                     <Route exact path={"/signup"} element={<SignUp/>} ></Route>
-                    <Route exact path={"/minidra"} element={<MiniDrawer/>}></Route>
+                    <Route exact path={"/dashboard"} element={<MiniDrawer/>}></Route>
                 </Routes>
             </BrowserRouter>
         </div>

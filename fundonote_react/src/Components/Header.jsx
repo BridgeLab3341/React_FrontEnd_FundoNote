@@ -18,12 +18,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
 import {alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-
-
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import { AccountCircle, Mail, Message } from '@mui/icons-material';
+import { Badge, MenuItem } from '@mui/material';
+import NotificationsIcon from '@mui/icons-material/Notifications'; 
 
 const drawerWidth = 240;
 
@@ -107,7 +108,7 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-
+//Search Bar
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -147,7 +148,7 @@ export default function MiniDrawer() {
       },
     },
   }));
-
+  
 
   
   return (
@@ -170,7 +171,7 @@ export default function MiniDrawer() {
           </IconButton>
 
           <Typography variant="h6" noWrap component="div">
-            Note
+            FundoNote
           </Typography>
 
           <div style={{  marginLeft:"7vw" }}>
@@ -187,7 +188,32 @@ export default function MiniDrawer() {
             /> 
           </Search>
           </div>
-
+          <div style={{  marginLeft:"40vw" }}>
+            <MenuItem>
+              <IconButton size='large' aria-label='show 4 new mails' color='inherit'>
+                <Badge badgeContent={4} color='error'>               
+                <MailIcon/>
+                </Badge>
+              </IconButton>
+              {/* <p>Message</p> */}
+            </MenuItem>
+          </div>
+          <div>
+          <MenuItem>
+              <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon/>
+                </Badge>
+              </IconButton>
+            </MenuItem>
+          </div>
+          <div>
+            <MenuItem >
+            <IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
+              <AccountCircle/>
+            </IconButton>
+            </MenuItem>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -199,7 +225,7 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Notes', 'Remainder', 'Important', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -215,7 +241,7 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <LightbulbIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -224,7 +250,7 @@ export default function MiniDrawer() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Edit Label', 'Archive', 'Trash'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
