@@ -148,7 +148,7 @@ function SignUp() {
                         </div>
                         <div className="buttonText">
                             <div className="message">
-                                <a href="./SignIn.html">sign in instead</a>
+                                <a href="./">sign in instead</a>
                             </div>
                             <div className="button">
                                 <Button onClick={verifySignUpData} variant="outlined">Next</Button>

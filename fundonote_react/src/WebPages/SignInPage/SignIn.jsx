@@ -51,6 +51,20 @@ function SignIn() {
             ))
         }
     }
+    const handleSubmit=async (event)=>{
+        event.preventDefault();
+        if(data.validEmail && data.validPassword){
+            setData({...data,checkEmail:true})
+            console.log(data);
+            let response = await SignIn(data);
+            localStorage.setItem("token",response?.data.data)
+            console.log(response);
+            let mytoken=localStorage.getItem('token');
+            if(mytoken!=null){
+                navigate("/dashboard");
+            }
+        }
+    }
 
     return (
         <div className="signmain">
@@ -80,12 +94,12 @@ function SignIn() {
                         </div>
                         <div className="forgot">
                             <div className="formess">
-                                <a href="">Forgot Password?</a>
+                                <a href="forget">Forgot Password?</a>
                             </div>
                         </div>
                         <div className="cracc">
                             <div className="linkm">
-                                <a href="">Create account</a>
+                                <a href="/Signup">Create account</a>
                             </div>
                             <div className="button">
                                 <Button onClick={verifyEmailPassword} class="fLogin">Login</Button>
