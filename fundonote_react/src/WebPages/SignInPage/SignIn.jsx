@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './SignIn.css'
 import { Button, TextField } from "@mui/material";
+import { Navigate } from "react-router-dom";
 const validEmail=new RegExp('[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 const validPassword=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
 
@@ -51,6 +52,21 @@ function SignIn() {
             ))
         }
     }
+    const handleSubmit=async (event)=>{
+        event.preventDefault();
+        if(data.validEmail && data.validPassword){
+            setData({...data,checkEmail:true})
+            console.log(data);
+            let response = await SignIn(data);
+            localStorage.setItem("token",response?.data.data)
+            console.log(response);
+            let mytoken=localStorage.getItem('token');
+            if(mytoken!=null){
+                Navigate("/dashboard");
+            }
+        }
+    }    
+
     return (
         <div className="signmain">
             <div className="main-container">
@@ -87,7 +103,7 @@ function SignIn() {
                                 <a href="/Signup">Create account</a>
                             </div>
                             <div className="button">
-                                <Button onClick={verifyEmailPassword} class="fLogin">Login</Button>
+                                <Button href={handleSubmit} onClick={verifyEmailPassword} class="fLogin">Login</Button>
                             </div>
                         </div>
                     </div>
