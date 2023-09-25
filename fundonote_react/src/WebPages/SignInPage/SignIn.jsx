@@ -51,21 +51,6 @@ function SignIn() {
             ))
         }
     }
-    const handleSubmit=async (event)=>{
-        event.preventDefault();
-        if(data.validEmail && data.validPassword){
-            setData({...data,checkEmail:true})
-            console.log(data);
-            let response = await SignIn(data);
-            localStorage.setItem("token",response?.data.data)
-            console.log(response);
-            let mytoken=localStorage.getItem('token');
-            if(mytoken!=null){
-                navigate("/dashboard");
-            }
-        }
-    }
-
     return (
         <div className="signmain">
             <div className="main-container">
