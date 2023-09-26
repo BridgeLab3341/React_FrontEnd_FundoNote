@@ -11,65 +11,43 @@ export default function CreateNote() {
     const [edit,setedit]=useState(false);
     const[note,setnote]=useState({Title:'',TakeNote:''});
 
-    const [cursor,setcursor]=React.useState(false);
-    const [close,setClose]=React.useState(true)
+    // const [cursor,setcursor]=React.useState(false);
+    const [close,setClose]=React.useState(false)
 
-
-    const checkCursor =()=>{
-        setcursor(true);
-    };
-
-    const checkClick=()=>{
-        setedit(true);
-    };
-    
-    const checkFirstEdit= (e)=>{
-        const value=e.target.value;
-        setnote({...note,Title:value});
-    }
-
-    const checkSecondEdit =(e)=>{
+    const checkEdit =(e)=>{
         const value=e.target.value;
         setnote({...note,Title:value});
     }
 
     const handlesubmit=()=>{
-        setClose(false)
+        setClose(true)
     }
       
     const handleInputBlur = () => {
         setedit(true);
     };
     
-    const handleClose=async(event)=>{
-        //handlesubmit();
-        console.log(true);
-        const token=localStorage.getItem('token')
-        console.log(token);
-        let response=await sendDataNote(edit, token)
-        console.log(response);    
-    }
-
     return( 
     <Box sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        height:"30px",
+        paddingTop:"18px",
         
       }}
     >
         <Paper
         sx={{
-          width:'80ch',
-      
-
+          width:'70ch',    
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'left',
-          padding: '1ch',
+          padding: '15ch',
           borderRadius:'10px',
-          boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.3)', // Add a thicker box shadow here
-          border: 'none',// Remove the border from the Paper
+          boxShadow: '2px 2px 2px 2px rgba(1, 1, 1, 0.3)', 
+          border: 'none',
+          height:'25ch'
          }}
         > 
         <div style={{
@@ -79,11 +57,10 @@ export default function CreateNote() {
             marginBottom: '10px', // Add some margin for spacing
           }}>
         <TextField
-          
           variant='standard'
           placeholder="Title..."
           value={edit.Title}
-          onChange={checkSecondEdit}
+          onChange={checkEdit}
           onBlur={handleInputBlur}
           InputProps=
           {{disableUnderline:'true',
@@ -94,17 +71,17 @@ export default function CreateNote() {
               textDecoration: 'none',
             },
           }}
-
-          /><IconButton aria-label="Pin Note">
-          <PushPinOutlined />
-        </IconButton>
+          />
+          <IconButton aria-label="Pin Note">
+           <PushPinOutlined />
+          </IconButton>
           </div>
           <TextField
             multiline
             variant='standard'
             placeholder="Take a note..."
             value={edit.takeaNote}
-            onChange={checkSecondEdit}
+            onChange={checkEdit}
             onBlur={handleInputBlur}
             InputProps={{
               disableUnderline:'true',
@@ -143,12 +120,10 @@ export default function CreateNote() {
               <IconButton aria-label="Redo">
                 <RedoOutlined/>
               </IconButton>
-    
-             
+  
               <Button 
-                type="submit" onClick={handleClose} 
-                style={{ border: 'none', backgroundColor: 'none', color:'grey', textTransform:'lowercase', fontWeight:'bolder' }}
-                
+                type="submit" onClick={handlesubmit} 
+                style={{ border: 'none', backgroundColor: 'none', color:'grey', textTransform:'lowercase', fontWeight:'bolder' }}              
               >
                 Close
               </Button>
