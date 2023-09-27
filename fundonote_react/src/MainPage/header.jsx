@@ -84,14 +84,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               flexGrow:1,
               display:'flex',
               height:'40px' }}>
-              <img src={Keep} class="logo-image" alt="" aria-hidden="true" role="presentation" style={{width:"70px", height:"49px"}} />           
-              <h3 style={{color: "black",marginTop:'0px',marginLeft:'12px'}}>FundoNote</h3>
+              <img src={Keep} class="logo-image" alt="" aria-hidden="true" role="presentation" style={{width:"50px", height:"40px"}} />           
+              <h3 style={{color: "grey",marginTop:'0px',marginLeft:'12px'}}>FundoNote</h3>
             </Typography>
             <Search style={{marginRight:'200px', width:'700px', height:'44px', backgroundColor:'lightgrey' }}>
               <SearchIconWrapper>
                 <StyledInputBase/>
-                <SearchIcon style={{color:"black", marginRight:'12px'}}/>
-                <h3 style={{color:"black"}}>Search</h3>
+                <SearchIcon style={{color:"black", marginRight:'12px', color:'grey',}}/>
+                <h3 style={{color:"grey", alignItems:"start" }}>Search</h3>
               </SearchIconWrapper>
             </Search>
               <IconButton edge="start" color="black" >

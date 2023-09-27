@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import './SignIn.css'
 import { Button, TextField } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { signIn } from "../../Services/UserServices";
 const validEmail=new RegExp('[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 const validPassword=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
 
@@ -10,6 +11,8 @@ function SignIn() {
 
     const [data, setData] = useState({ email: '', password: '' });
     const [validationObj, setvalidationObj] = useState({ emaiBorder: false, emailHelper: '', passBorder: false, passHelper: '' })
+
+    const navigate=useNavigate();
 
     const handleEmail = (email) => {
         setData(prevState => (
@@ -51,22 +54,14 @@ function SignIn() {
                 }
             ))
         }
-    }
-    const handleSubmit=async (event)=>{
-        event.preventDefault();
-        if(data.validEmail && data.validPassword){
-            setData({...data,checkEmail:true})
-            console.log(data);
-            let response = await SignIn(data);
-            localStorage.setItem("token",response?.data.data)
+        if(validEmail === true && validPassword === true){
+            let response=signIn(data);
             console.log(response);
-            let mytoken=localStorage.getItem('token');
-            if(mytoken!=null){
-                Navigate("/dashboard");
-            }
+            localStorage.setItem("token",response.data.data)
+            navigate("/dashboard")
         }
-    }    
 
+    }
     return (
         <div className="signmain">
             <div className="main-container">
@@ -103,7 +98,7 @@ function SignIn() {
                                 <a href="/Signup">Create account</a>
                             </div>
                             <div className="button">
-                                <Button href={handleSubmit} onClick={verifyEmailPassword} class="fLogin">Login</Button>
+                                <Button onClick={verifyEmailPassword} className="fLogin">Login</Button>
                             </div>
                         </div>
                     </div>

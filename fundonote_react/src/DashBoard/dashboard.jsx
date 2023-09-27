@@ -1,24 +1,31 @@
-import { Container, CssBaseline, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import SearchAppBar from '../MainPage/header';
 import MiniDrawer from '../MainPage/navdrawer';
-import CreateNote from '../Components/CreateNote/Note';
+import CreateNote from '../Components/CreateNote/NoteThree';
+import NoteOne from '../Components/CreateNote/NoteOne';
+import TakeNoteTwo from '../Components/CreateNote/NoteTwo';
 
 export default function Dashboard(){
-    const[item, setItem]=useState(false)
+
+    const[menuToggle,setmenuToggle]=useState(false);
+    const handleDrawer=()=>{
+        setmenuToggle(!menuToggle)
+    }
+
+    const[toggle,setToggle]=useState(true);
+    const handleToggel=()=>{
+        setToggle(!toggle)
+    };
+
     return (
         <div>
-            <CssBaseline/>
-            <SearchAppBar setItem={setItem} style={{marginBottom:'20px'}} />
-            <Container>
-                <Grid container>
-                    <Grid item xs={3}>
-                        <MiniDrawer item={item}/>
-                    </Grid>
-                </Grid>
-                <Grid item xs={9}></Grid>
-            </Container>
-            <CreateNote/>
+            <SearchAppBar />
+            <MiniDrawer handleDrawer={handleDrawer}/>
+            {
+                toggle ? <NoteOne handleToggel={handleToggel}/> : <TakeNoteTwo handleToggel={handleToggel}/>
+
+            }
+            
         </div>
     )
 }
