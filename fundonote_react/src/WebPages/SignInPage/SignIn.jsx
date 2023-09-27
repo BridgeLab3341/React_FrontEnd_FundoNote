@@ -45,6 +45,15 @@ function SignIn() {
                 }
             ))
         }
+        else{
+            setvalidationObj(prevState => (
+                {
+                    ...prevState,
+                    emaiBorder: true,
+                }
+            ))
+
+        }
         if (checkPass === false) {
             setvalidationObj(prevState => (
                 {
@@ -54,6 +63,16 @@ function SignIn() {
                 }
             ))
         }
+        else {
+            setvalidationObj(prevState => (
+                {
+                    ...prevState,
+                    passBorder: false,
+                }
+            ))
+        }
+        console.log(data);
+        
         if(validEmail === true && validPassword === true){
             let response=signIn(data);
             console.log(response);

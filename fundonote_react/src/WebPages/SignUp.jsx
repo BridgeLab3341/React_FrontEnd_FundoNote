@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import './SignUp.css';
 import images from '../assets/SignUpImage.jpg'
 import { Button, TextField } from '@mui/material';
+import { signUp } from "../Services/UserServices";
 const validFirstName =new RegExp('^[A-Z]{1,}[A-Za-z]{3,}$');
 const validLastName=new RegExp('^[A-Za-z]{1,}$');
 const validEmail=new RegExp('[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
@@ -87,6 +88,10 @@ function SignUp() {
                     passHelper:'Password Sholud be atleast 8 characters'
                 }
             ))
+        }
+        if(checkFirstName === true && checkLastName === true && checkEmail === true && checkPass === true){
+            let response=signUp(SignUp);
+            console.log(response);
         }
     }
 

@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import CreateNote from "../Components/CreateNote/NoteThree";
 
 export const signIn = (obj)=>{
     let response = axios.post('https://localhost:44381/api/User/Login',obj);
@@ -8,7 +7,7 @@ export const signIn = (obj)=>{
     return response;
 };
 
-export const SignUp=async(obj)=>{
-    let response =await axios.post('https://localhost:44381/api/User/Register',obj);
+export const signUp=(obj)=>{
+    let response = axios.post('https://localhost:44381/api/User/Register',obj);
     return response;
 }
