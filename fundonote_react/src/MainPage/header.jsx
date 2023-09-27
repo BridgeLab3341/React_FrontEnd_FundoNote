@@ -13,6 +13,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AppsIcon from '@mui/icons-material/Apps';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Keep from '../assets/Keep.png';
+import { TextField } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -30,13 +31,14 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0, 1),
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  margin:theme.spacing(0,1),
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -62,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       console.log("text", event)
       // props.setItem({item :!props.item})
       setItem(prev=> !prev);
+     console.log("verify")
     }
     console.log("item value", item)
     // function menuToggle(){
@@ -84,15 +87,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               flexGrow:1,
               display:'flex',
               height:'40px' }}>
-              <img src={Keep} class="logo-image" alt="" aria-hidden="true" role="presentation" style={{width:"50px", height:"40px"}} />           
-              <h3 style={{color: "grey",marginTop:'0px',marginLeft:'12px'}}>FundoNote</h3>
+              <img src={Keep} class="logo-image" alt="" aria-hidden="true" role="presentation" style={{width:"45px", height:"40px",paddingLeft:'12px'}} />           
+              <h3 style={{color: "grey",marginTop:'0px',marginLeft:'3px',fontSize:'22px'}}>FundoNote</h3>
             </Typography>
-            <Search style={{marginRight:'200px', width:'700px', height:'44px', backgroundColor:'lightgrey' }}>
-              <SearchIconWrapper>
+            <Search style={{marginRight:'150px', width:'800px', height:'44px', backgroundColor:'lightgrey' }}>
+              <SearchIconWrapper style={{display:'flex',alignContent:'start',marginRight:'32px'}} >
                 <StyledInputBase/>
-                <SearchIcon style={{color:"black", marginRight:'12px', color:'grey',}}/>
-                <h3 style={{color:"grey", alignItems:"start" }}>Search</h3>
               </SearchIconWrapper>
+              <StyledInputBase placeholder='Search...' inputProps={{'aria-label': 'search'}} />
+                {/* <StyledInputBase style={{ display:'flex', color:"black", marginRight:'25px', color:'grey',}}/> */}
+                {/* <TextField style={{color:"grey", alignItems:"start" }} id="fName" label="First Name" ></TextField> */}
             </Search>
               <IconButton edge="start" color="black" >
               <RefreshIcon /> 

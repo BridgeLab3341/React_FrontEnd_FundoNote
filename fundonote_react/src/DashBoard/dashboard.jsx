@@ -7,9 +7,9 @@ import TakeNoteTwo from '../Components/CreateNote/NoteTwo';
 
 export default function Dashboard(){
 
-    const[menuToggle,setmenuToggle]=useState(false);
-    const handleDrawer=()=>{
-        setmenuToggle(!menuToggle)
+    const [item,setItem]=useState(false);
+    const menuToggel=()=>{
+        setItem(!item)
     }
 
     const[toggle,setToggle]=useState(true);
@@ -19,8 +19,8 @@ export default function Dashboard(){
 
     return (
         <div>
-            <SearchAppBar />
-            <MiniDrawer handleDrawer={handleDrawer}/>
+            <SearchAppBar item={item} setItem={menuToggel}/>
+            <MiniDrawer item={item}/>
             {
                 toggle ? <NoteOne handleToggel={handleToggel}/> : <TakeNoteTwo handleToggel={handleToggel}/>
 

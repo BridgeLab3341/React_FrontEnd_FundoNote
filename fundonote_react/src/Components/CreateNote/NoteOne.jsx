@@ -12,10 +12,10 @@ export default function NoteOne({handleToggel}) {
             alignItems:'center',
             justifyContent:'center', '& > :not(style)': {
               m: 1,
-              width: '60vw',
-              height: '30%',
-              padding:'35px',              
+              width: '50vw',
+              height: '70%',
             },
+            paddingTop:'70px',
           }}
         >
          <Paper elevation={3} onClick={handleToggel}>

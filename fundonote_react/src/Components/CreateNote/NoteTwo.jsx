@@ -19,11 +19,7 @@ export default function TakeNoteTwo({handleToggel}){
         setInput({...input, takeaNote:value});
     };
 
-    const handleInputBlur = () => {
-        setEdit(true);
-      };
-
-    const handleClose=async()=>{
+    const handleClose=()=>{
         console.log(true);
         const token=localStorage.getItem('token')
         console.log(token);
@@ -37,8 +33,8 @@ export default function TakeNoteTwo({handleToggel}){
             alignItems:'center',
             justifyContent:'center',
             Width:"30vw",
-            height:"30vh",
-    
+            height:"20vh",
+            paddingTop:'50px',    
         }}
         >
             <Paper
@@ -65,7 +61,6 @@ export default function TakeNoteTwo({handleToggel}){
                      placeholder="Title..."
                      value={input.title}
                      onChange={handleInputchange1}
-                     onBlur={handleInputBlur}
                      InputProps=
                      {{disableUnderline:'true',
                         style: {
@@ -85,7 +80,6 @@ export default function TakeNoteTwo({handleToggel}){
                 placeholder="Take a note..."
                 value={input.takeaNote}
                 onChange={handleInputChange2}
-                onBlur={handleInputBlur}
                 InputProps={{
                 disableUnderline:'true',
                 style: {
