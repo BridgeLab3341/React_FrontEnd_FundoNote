@@ -4,28 +4,28 @@ import MiniDrawer from '../MainPage/navdrawer';
 import CreateNote from '../Components/CreateNote/NoteThree';
 import NoteOne from '../Components/CreateNote/NoteOne';
 import TakeNoteTwo from '../Components/CreateNote/NoteTwo';
+import NoteThree from '../Components/CreateNote/NoteThree';
 
-export default function Dashboard(){
+export default function Dashboard() {
 
-    const [item,setItem]=useState(false);
-    const menuToggel=()=>{
+    const [item, setItem] = useState(false);
+    const menuToggel = () => {
         setItem(!item)
     }
 
-    const[toggle,setToggle]=useState(true);
-    const handleToggel=()=>{
+    const [toggle, setToggle] = useState(true);
+    const handleToggel = () => {
         setToggle(!toggle)
     };
 
     return (
         <div>
-            <SearchAppBar item={item} setItem={menuToggel}/>
-            <MiniDrawer item={item}/>
+            <SearchAppBar item={item} setItem={menuToggel} />
+            <MiniDrawer item={item} />
             {
-                toggle ? <NoteOne handleToggel={handleToggel}/> : <TakeNoteTwo handleToggel={handleToggel}/>
-
+                toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
             }
-            
+            {/* <NoteThree/> */}
         </div>
     )
 }

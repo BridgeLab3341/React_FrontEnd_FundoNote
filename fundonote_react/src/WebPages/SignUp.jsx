@@ -2,22 +2,23 @@ import React,{useState} from "react";
 import './SignUp.css';
 import images from '../assets/SignUpImage.jpg'
 import { Button, TextField } from '@mui/material';
-import { signUp } from "../Services/UserServices";
+import { Register } from "../Services/UserServices";
 const validFirstName =new RegExp('^[A-Z]{1,}[A-Za-z]{3,}$');
 const validLastName=new RegExp('^[A-Za-z]{1,}$');
-const validEmail=new RegExp('[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+const validEmail=new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 const validPassword=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
 
 function SignUp() {
 
-    const[data,setData]=useState({firstName:'',lastName:'',email:'',password:''});
+    const[data,setData]=useState({FirstName:" ",LastName:" ",
+    Email:" ", Password:" "});
     const[validationObj,setvalidationObj]=useState({firstNameBorder:false,firstNameHelper:'',lastNameBorder:false,lastNameHelper:'',emailBorder: false, emailHelper: '', passBorder: false, passHelper:''})
 
     const handleFirstName=(firstName)=>{
         setData(prevState => (
             {
                 ...prevState,
-                firstName:firstName.target.value
+                FirstName:firstName.target.value
             }
         ))
     }
@@ -25,7 +26,7 @@ function SignUp() {
         setData(prevState =>(
             {
                 ...prevState,
-                lastName:lastName.target.value
+                LastName:lastName.target.value
             }
         ))
     }
@@ -33,7 +34,7 @@ function SignUp() {
         setData(prevState=>(
             {
                 ...prevState,
-                email:email.target.value
+                Email:email.target.value
             }
         ))
     }
@@ -41,17 +42,16 @@ function SignUp() {
         setData(prevState=>(
             {
                 ...prevState,
-                password:password.target.value
+                Password:password.target.value
             }
         ))
     }
-    console.log(data);
 
-    const verifySignUpData=()=>{
-        let checkFirstName=validFirstName.test(data.firstName)
-        let checkLastName=validLastName.test(data.lastName)
-        let checkEmail=validEmail.test(data.email)
-        let checkPass=validPassword.test(data.password)
+    const verifySignUpData=async()=>{
+        let checkFirstName=validFirstName.test(data.FirstName)
+        let checkLastName=validLastName.test(data.LastName)
+        let checkEmail=validEmail.test(data.Email)
+        let checkPass=validPassword.test(data.Password)
 
         if(checkFirstName === false){
             setvalidationObj(prevState=>(
@@ -89,10 +89,15 @@ function SignUp() {
                 }
             ))
         }
+        console.log(data);
+        
+
         if(checkFirstName === true && checkLastName === true && checkEmail === true && checkPass === true){
-            let response=signUp(SignUp);
-            console.log(response);
+            let response=await Register(data)
+            console.log(response)
         }
+
+
     }
 
     return (

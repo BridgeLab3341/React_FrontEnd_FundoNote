@@ -1,32 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { sendDataNote } from "../../Services/UserServices";
 import { Button, IconButton, Paper, TextField } from "@mui/material";
 import Box from '@mui/material/Box';
-import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, More, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, UndoOutlined } from '@mui/icons-material';
+import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, More, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, Title, UndoOutlined } from '@mui/icons-material';
 import { NoteCreate } from "../../Services/NoteServices";
 
 
 export default function TakeNoteTwo({ handleToggel }) {
-  const [input, setInput] = useState({ Title: '', Takenote: '' });
+
+  const [input, setInput] = useState({ Title: '', Description: '', BGColor:'',Archive:'',Remainder:'',Pin:'',Trash:'',CreatedTime:'',UpdatedTime:''});
+
+  const [isArchive, setisArchive]=useState(false);
+
+  const handleIsArchive=(a)=>{
+    const value=a.target.value;
+    setisArchive({...isArchive,Title:value})
+  }
 
   const handleTitle = (e) => {
     const value = e.target.value;
-    setInput({ ...input, Title: value });
+    setInput({ ...input, Title: value },[Title]);
   };
 
-  const handleTakenote = (e) => {
+  const handleDescription = (e) => {
     const value = e.target.value;
-    setInput({ ...input, Takenote: value });
+    setInput({ ...input, Description: value },[]);
   };
 
   const handleClose = (e) => {
     handleToggel(true)
     console.log(input);
-    if (input != null && input.Title != "") {
+    console.log("note added")
+    if (input != null && input.Title != "" && input.Description !="") {
       let response = NoteCreate(input)
       console.log(response);
     }
   }
+  console.log(input);
 
   return (
     <Box sx={{
@@ -81,7 +91,7 @@ export default function TakeNoteTwo({ handleToggel }) {
           variant='standard'
           placeholder="Take a note..."
           value={input.Takenote}
-          onChange={handleTakenote}
+          onChange={handleDescription}
           InputProps={{
             disableUnderline: 'true',
             style: {
@@ -108,7 +118,7 @@ export default function TakeNoteTwo({ handleToggel }) {
           <IconButton aria-label="Image">
             <ImageOutlined />
           </IconButton>
-          <IconButton aria-label="Archive">
+          <IconButton aria-label="Archive" onClick={handleIsArchive}>
             <ArchiveOutlined />
           </IconButton>
           <IconButton aria-label="More Options">

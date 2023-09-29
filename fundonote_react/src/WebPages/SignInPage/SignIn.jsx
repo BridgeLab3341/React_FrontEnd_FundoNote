@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import './SignIn.css'
 import { Button, TextField } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
-import { signIn } from "../../Services/UserServices";
-const validEmail=new RegExp('[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
-const validPassword=new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
+import { Login } from "../../Services/UserServices";
+const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
 
 
 function SignIn() {
@@ -12,13 +12,13 @@ function SignIn() {
     const [data, setData] = useState({ email: '', password: '' });
     const [validationObj, setvalidationObj] = useState({ emaiBorder: false, emailHelper: '', passBorder: false, passHelper: '' })
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    const handleEmail = (email) => {
+    const handleEmail = (e) => {
         setData(prevState => (
             {
                 ...prevState,
-                email: email.target.value
+                email: e.target.value
             }
         ))
     }
@@ -30,7 +30,6 @@ function SignIn() {
             }
         ))
     }
-    console.log(data);
 
     const verifyEmailPassword = () => {
         let checkEmail = validEmail.test(data.email)
@@ -45,7 +44,7 @@ function SignIn() {
                 }
             ))
         }
-        else{
+        else {
             setvalidationObj(prevState => (
                 {
                     ...prevState,
@@ -72,14 +71,18 @@ function SignIn() {
             ))
         }
         console.log(data);
-        
-        if(validEmail === true && validPassword === true){
-            let response=signIn(data);
-            console.log(response);
-            localStorage.setItem("token",response.data.data)
-            navigate("/dashboard")
-        }
 
+        if (checkEmail === true && checkPass === true) {
+            Login(data)
+                .then((response) => {
+                    console.log(response);
+                    localStorage.setItem("token", response.data.data.token)
+                    navigate("/dashboard")
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
     }
     return (
         <div className="signmain">
@@ -102,10 +105,10 @@ function SignIn() {
                     </div>
                     <div className="form-content">
                         <div className="username">
-                            <TextField id="email" label="Email or Phone" onChange={handleEmail} error={validationObj.emaiBorder} helperText={validationObj.emailHelper} variant="outlined" size="small" required />
+                            <TextField className="std-box" id="email" label="Email or Phone" onChange={handleEmail}  helperText={validationObj.emailHelper} variant="outlined" size="small" required />
                         </div>
                         <div className="pass">
-                            <TextField id="password" label="Password" onChange={handlePassword} error={validationObj.passBorder} helperText={validationObj.passHelper} variant="outlined" size="small" required />
+                            <TextField className="std-box" id="password" label="Password" onChange={handlePassword} error={validationObj.passBorder} helperText={validationObj.passHelper} variant="outlined" size="small" required />
                         </div>
                         <div className="forgot">
                             <div className="formess">
@@ -116,7 +119,7 @@ function SignIn() {
                             <div className="linkm">
                                 <a href="/Signup">Create account</a>
                             </div>
-                            <div className="button">
+                            <div className="button-sin">
                                 <Button onClick={verifyEmailPassword} className="fLogin">Login</Button>
                             </div>
                         </div>
