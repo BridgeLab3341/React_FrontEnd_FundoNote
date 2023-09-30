@@ -105,7 +105,7 @@ function SignIn() {
                     </div>
                     <div className="form-content">
                         <div className="username">
-                            <TextField className="std-box" id="email" label="Email or Phone" onChange={handleEmail}  helperText={validationObj.emailHelper} variant="outlined" size="small" required />
+                            <TextField className="std-box" id="email" label="Email or Phone" onChange={handleEmail} error={validationObj.passBorder} helperText={validationObj.emailHelper} variant="outlined" size="small" required />
                         </div>
                         <div className="pass">
                             <TextField className="std-box" id="password" label="Password" onChange={handlePassword} error={validationObj.passBorder} helperText={validationObj.passHelper} variant="outlined" size="small" required />

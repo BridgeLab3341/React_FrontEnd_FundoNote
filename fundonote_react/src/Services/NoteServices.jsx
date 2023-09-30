@@ -1,17 +1,26 @@
 import axios from "axios";
-import React,{useEffect,useState} from "react";
 
-export const NoteCreate=(obj)=>{
+const JWTToken = localStorage.getItem("token");
+console.log(JWTToken);
 
-    let response=axios.post("https://localhost:44381/api/Note/AddNote",
-    obj,
-    )
-    console.log(response);
+export const NoteCreate=async(obj)=>{
+    console.log("Object", obj);
+    let response=await axios.post("https://localhost:44381/api/Note/AddNote",obj,{
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${JWTToken}`,
+        }
+    })
+    //console.log(response);
     return response;
 }
 
-export const GetAllNotes = ()=>{
-    let response = axios.get("https://localhost:44381/api/Note/GetAllNotes",
-    )
+export const GetAllNotes = async()=>{
+    let response =await axios.get("https://localhost:44381/api/Note/GetAllNotes",{
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${JWTToken}`,
+        }
+    })
     return response;
 }

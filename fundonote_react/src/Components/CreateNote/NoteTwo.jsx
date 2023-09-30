@@ -2,20 +2,13 @@ import React, { useEffect, useState } from "react";
 import { sendDataNote } from "../../Services/UserServices";
 import { Button, IconButton, Paper, TextField } from "@mui/material";
 import Box from '@mui/material/Box';
-import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, More, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, Title, UndoOutlined } from '@mui/icons-material';
-import { NoteCreate } from "../../Services/NoteServices";
+import { ArchiveOutlined, ColorLensOutlined, Description, ImageOutlined, More, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, Title, UndoOutlined } from '@mui/icons-material';
+import { NoteCreate,GetAllNotes } from "../../Services/NoteServices";
 
 
-export default function TakeNoteTwo({ handleToggel }) {
+export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
 
-  const [input, setInput] = useState({ Title: '', Description: '', BGColor:'',Archive:'',Remainder:'',Pin:'',Trash:'',CreatedTime:'',UpdatedTime:''});
-
-  const [isArchive, setisArchive]=useState(false);
-
-  const handleIsArchive=(a)=>{
-    const value=a.target.value;
-    setisArchive({...isArchive,Title:value})
-  }
+  const [input, setInput] = useState({ Title: '', Description: '', BGColor:'',Archive:false,Remainder:'',Pin:false,Trash:false,CreatedTime:'',UpdatedTime:''});
 
   const handleTitle = (e) => {
     const value = e.target.value;
@@ -24,16 +17,18 @@ export default function TakeNoteTwo({ handleToggel }) {
 
   const handleDescription = (e) => {
     const value = e.target.value;
-    setInput({ ...input, Description: value },[]);
+    setInput({ ...input, Description: value },[Description]);
   };
 
-  const handleClose = (e) => {
+
+  const handleClose = async(e) => {
     handleToggel(true)
     console.log(input);
-    console.log("note added")
-    if (input != null && input.Title != "" && input.Description !="") {
-      let response = NoteCreate(input)
+    if (input != null && input.Title != null) {
+      const response =await NoteCreate(input)
       console.log(response);
+      getAllNotesResponse();
+
     }
   }
   console.log(input);
@@ -118,7 +113,7 @@ export default function TakeNoteTwo({ handleToggel }) {
           <IconButton aria-label="Image">
             <ImageOutlined />
           </IconButton>
-          <IconButton aria-label="Archive" onClick={handleIsArchive}>
+          <IconButton aria-label="Archive">
             <ArchiveOutlined />
           </IconButton>
           <IconButton aria-label="More Options">

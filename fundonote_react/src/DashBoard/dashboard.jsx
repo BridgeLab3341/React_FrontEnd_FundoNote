@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchAppBar from '../MainPage/header';
 import MiniDrawer from '../MainPage/navdrawer';
-import CreateNote from '../Components/CreateNote/NoteThree';
 import NoteOne from '../Components/CreateNote/NoteOne';
 import TakeNoteTwo from '../Components/CreateNote/NoteTwo';
 import NoteThree from '../Components/CreateNote/NoteThree';
+import { GetAllNotes } from '../Services/NoteServices';
 
 export default function Dashboard() {
 
@@ -18,6 +18,16 @@ export default function Dashboard() {
         setToggle(!toggle)
     };
 
+    const [posts, setPosts] = useState([]);
+
+    async function getAllNotesResponse() {
+        let response = await GetAllNotes();
+        console.log(response.data.data)
+    }
+
+    useEffect(() => {
+        getAllNotesResponse()
+    })
     return (
         <div>
             <SearchAppBar item={item} setItem={menuToggel} />
@@ -25,7 +35,9 @@ export default function Dashboard() {
             {
                 toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
             }
-            {/* <NoteThree/> */}
+            { 
+                posts.map((data) => (<NoteThree data={data} getAllNotesResponse={getAllNotesResponse} />))        
+            }
         </div>
     )
 }
