@@ -9,13 +9,15 @@ import NotificationsPausedOutlinedIcon from '@mui/icons-material/NotificationsPa
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 
-export default function NoteThree({input}) {
+export default function NoteThree({data}) {
 
     return (
         <Box
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
+                flexDirection:'row',
+                padding:'35px',
                 flexWrap: 'wrap',
                 '& > :not(style)': {
                     m: 1,
@@ -26,24 +28,24 @@ export default function NoteThree({input}) {
         >
             <div>
                 <Paper elevation={3}>
-                    <div className='displaytitle'>
+                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'5px'}}  className='displaytitle'>
                         <div>
-                            {input.title}
+                            {data.title}
                         </div>
                         <div>
                             <IconButton ><PushPinOutlinedIcon /></IconButton>
                         </div>
                     </div>
-                    <div className='displaynote'>
-                        {input.Description}
+                    <div style={{display:'flex', padding:'5px'}} className='displaynote'> 
+                        {data.description}
                     </div>
-                    <div className='displayicons'>
-                        <div><IconButton ><NotificationsPausedOutlinedIcon /></IconButton></div>
-                        <div><IconButton><PersonAddAltOutlinedIcon /></IconButton></div>
-                        <div><IconButton><PaletteOutlinedIcon /></IconButton></div>
-                        <div><IconButton><MoreVertOutlinedIcon /></IconButton></div>
-                        <div><IconButton ><ArchiveOutlinedIcon /></IconButton></div>
-                        <div><IconButton><DeleteOutlinedIcon  /></IconButton></div>
+                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'5px'}} className='displayicons'>
+                        <div className='NotifiIcon'><IconButton ><NotificationsPausedOutlinedIcon /></IconButton></div>
+                        <div className='PersonIcon'><IconButton><PersonAddAltOutlinedIcon /></IconButton></div>
+                        <div className='PaletIcon'><IconButton><PaletteOutlinedIcon /></IconButton></div>
+                        <div className='ArchIcon'><IconButton ><ArchiveOutlinedIcon /></IconButton></div>
+                        <div className='DeleteIcon'><IconButton><DeleteOutlinedIcon  /></IconButton></div>
+                        <div className='MoreIcon'><IconButton><MoreVertOutlinedIcon /></IconButton></div>
                     </div>
                 </Paper>
             </div>

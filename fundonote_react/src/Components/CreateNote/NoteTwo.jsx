@@ -1,34 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { sendDataNote } from "../../Services/UserServices";
+import React, { useState ,useEffect} from "react";
 import { Button, IconButton, Paper, TextField } from "@mui/material";
 import Box from '@mui/material/Box';
-import { ArchiveOutlined, ColorLensOutlined, Description, ImageOutlined, More, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, Title, UndoOutlined } from '@mui/icons-material';
-import { NoteCreate,GetAllNotes } from "../../Services/NoteServices";
+import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, UndoOutlined } from '@mui/icons-material';
+import { NoteCreate } from "../../Services/NoteServices";
 
 
 export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
 
-  const [input, setInput] = useState({ Title: '', Description: '', BGColor:'',Archive:false,Remainder:'',Pin:false,Trash:false,CreatedTime:'',UpdatedTime:''});
+  const [input, setInput] = useState({ title: '', description: ''});
+
+  // useEffect(()=>{
+  //   console.log(input.title);
+  //   console.log(input.description);
+  // },[input])
 
   const handleTitle = (e) => {
     const value = e.target.value;
-    setInput({ ...input, Title: value },[Title]);
+    setInput({ ...input, title: value });
   };
 
   const handleDescription = (e) => {
     const value = e.target.value;
-    setInput({ ...input, Description: value },[Description]);
+    setInput({ ...input, description: value });
   };
 
+ // const [sendData,setSendData]=useState([]);
 
   const handleClose = async(e) => {
     handleToggel(true)
+    //console.log(input);
+    console.log("input");
     console.log(input);
-    if (input != null && input.Title != null) {
+    if (input != null && input.title != null) {
       const response =await NoteCreate(input)
       console.log(response);
-      getAllNotesResponse();
 
+      // const newData=response.data.data;
+      // const updatedSendData =[...sendData,newData];
+      // setSendData(updatedSendData);
+
+      console.log("creating note");
+      // getAllNotesResponse();
     }
   }
   console.log(input);
@@ -65,7 +77,7 @@ export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
           <TextField
             variant='standard'
             placeholder="Title..."
-            value={input.Title}
+            value={input.title}
             onChange={handleTitle}
             InputProps=
             {{
@@ -85,7 +97,7 @@ export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
           multiline
           variant='standard'
           placeholder="Take a note..."
-          value={input.Takenote}
+          value={input.description}
           onChange={handleDescription}
           InputProps={{
             disableUnderline: 'true',

@@ -19,15 +19,18 @@ export default function Dashboard() {
     };
 
     const [posts, setPosts] = useState([]);
-
+    
     async function getAllNotesResponse() {
         let response = await GetAllNotes();
         console.log(response.data.data)
+        console.log("data Fetched")
+        setPosts(response.data.data)
+        
     }
 
     useEffect(() => {
         getAllNotesResponse()
-    })
+    },[])
     return (
         <div>
             <SearchAppBar item={item} setItem={menuToggel} />
@@ -36,7 +39,9 @@ export default function Dashboard() {
                 toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
             }
             { 
-                posts.map((data) => (<NoteThree data={data} getAllNotesResponse={getAllNotesResponse} />))        
+                //   posts.map((data) => (<NoteThree key={data.id} data={data}/>))  
+                  posts.map((data) => (<NoteThree data={data} getAllNotesResponse={getAllNotesResponse}/>))      
+                
             }
         </div>
     )

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './SignIn.css'
 import { Button, TextField } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { Login } from "../../Services/UserServices";
 const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$');
