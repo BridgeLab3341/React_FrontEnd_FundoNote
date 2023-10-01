@@ -9,6 +9,7 @@ import NotificationsPausedOutlinedIcon from '@mui/icons-material/NotificationsPa
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { ArchiveNote, TrashNote } from '../../Services/NoteServices';
+import './NoteStyles.css'
 
 export default function NoteThree({ data, getAllNotesResponse }) {
 
@@ -20,53 +21,42 @@ export default function NoteThree({ data, getAllNotesResponse }) {
         try {
             const response = await ArchiveNote(archivedObj);
             console.log(response);
-            //getAllNotesResponse(); // Refresh notes after archiving
+            getAllNotesResponse(); // Refresh notes after archiving
         } catch (error) {
             console.error(error.message);
         }
     }
 
-    // const handleTrashNote = async (id) => {
-    //     let trashObj = {
-    //         noteId: id,
-    //     };
-    //     console.log(trashObj);
-    //     try {
-    //         const response = await TrashNote(trashObj);
-    //         console.log(response);
-    //         //getAllNotesResponse(); // Refresh notes after trashing
-    //     } catch (error) {
-    //         console.error(error.message);
-    //     }
-    // }
     const handleTrashNote = async (id) => {
+        let trashObj = {
+            noteId: id,
+        };
+        console.log(trashObj);
         try {
-          const response = await TrashNote(id);
-          console.log(response);
-          getAllNotesResponse();
+            const response = await TrashNote(trashObj);
+            console.log(response);
+            getAllNotesResponse(); // Refresh notes after trashing
         } catch (error) {
-          console.error(error.message);
+            console.error(error.message);
         }
-      };
-
+    }
     return (
+        
         <Box
             sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'row',
+                 display: 'flex',
+                 justifyContent:'center',
+                flexWrap:'wrap',
                 padding: '35px',
-                flexWrap: 'wrap',
                 '& > :not(style)': {
                     m: 1,
                     width: 300,
-                    // height: 300,
                 },
             }}
         >
             <div>
                 <Paper elevation={3}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }} className='displaytitle'>
+                    <div  className='displaytitle'>
                         <div>
                             {data.title}
                         </div>
@@ -74,10 +64,10 @@ export default function NoteThree({ data, getAllNotesResponse }) {
                             <IconButton ><PushPinOutlinedIcon /></IconButton>
                         </div>
                     </div>
-                    <div style={{ display: 'flex', padding: '5px' }} className='displaynote'>
+                    <div  className='displaynote'>
                         {data.description}
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }} className='displayicons'>
+                    <div className='displayicons'>
                         <div className='NotifiIcon'><IconButton ><NotificationsPausedOutlinedIcon /></IconButton></div>
                         <div className='PersonIcon'><IconButton><PersonAddAltOutlinedIcon /></IconButton></div>
                         <div className='PaletIcon'><IconButton><PaletteOutlinedIcon /></IconButton></div>

@@ -7,7 +7,7 @@ import { NoteCreate } from "../../Services/NoteServices";
 
 export default function TakeNoteTwo({ handleToggel,props }) {
 
-  const [input, setInput] = useState({ title: '', description: '', bgColor: '',Archive: false,isTash: false});
+  const [input, setInput] = useState({ title: '', description: '', bgColor: '',archive: false,trash: false});
 
   // useEffect(()=>{
   //   console.log(input.title);
@@ -27,7 +27,7 @@ export default function TakeNoteTwo({ handleToggel,props }) {
   const handleArchiveNote=(e)=>{
     input(prevState=>({
       ...prevState,
-      Archive:true,
+      archive:true,
     }))
     console.log("Note is Archived");
   }

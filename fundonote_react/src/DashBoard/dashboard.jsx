@@ -22,19 +22,20 @@ export default function Dashboard() {
 
     const [noteOption, setNoteOption] = useState("Notes");
     //Fetch all Notes
-    const [posts, setPosts] = useState([]); 
+    const [posts, setPosts] = useState([]);
 
     async function getAllNotesResponse() {
 
-try {
+        try {
             let response = await GetAllNotes();
+            console.log(response.data.data);
             let filterNote = [];
             if (noteOption === 'Notes') {
-                filterNote = response.data.data.filter(note => !note.Archive && !note.isTash);
-            } else if (noteOption === 'Archive') {
-                filterNote = response.data.data.filter(note => note.Archive && !note.isTash);
+                filterNote = response.data.data.filter(note => note.archive == false && note.trash == false);
+            } else if (noteOption === 'archive') {
+                filterNote = response.data.data.filter(note => note.archive && !note.trash);
             } else if (noteOption === 'Bin') {
-                filterNote = response.data.data.filter(note => note.isTash);
+                filterNote = response.data.data.filter(note => note.trash);
             }
             setPosts(filterNote);
         } catch (error) {
@@ -52,7 +53,7 @@ try {
         // const refreshTimer = setInterval(autoRefresh, 60000);
 
         // return ()=>clearInterval(refreshTimer);
-    },[]);
+    }, []);
     // const autoRefresh=()=>{
     //     getAllNotesResponse()
     // }
@@ -63,12 +64,12 @@ try {
             <SearchAppBar item={item} setItem={menuToggel} />
             <MiniDrawer item={item} />
             {
-                toggle ? <NoteOne  handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
+                toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
             }
-            { 
+            {
                 //   posts.map((data) => (<NoteThree key={data.id} data={data}/>))  
-                  //posts.map((data) => (<NoteThree autoRefresh={autoRefresh} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
-                  posts.map((data) => (<NoteThree  key={data.id} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
+                //posts.map((data) => (<NoteThree autoRefresh={autoRefresh} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
+                posts.map((data) => (<NoteThree key={data.id} data={data} getAllNotesResponse={getAllNotesResponse} />))
             }
         </div>
     )
