@@ -8,16 +8,54 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import NotificationsPausedOutlinedIcon from '@mui/icons-material/NotificationsPausedOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
+import { ArchiveNote, TrashNote } from '../../Services/NoteServices';
 
-export default function NoteThree({data}) {
+export default function NoteThree({ data, getAllNotesResponse }) {
+
+    const handleArchive = async (id) => {
+        let archivedObj = {
+            noteId: id,
+        };
+        console.log(archivedObj);
+        try {
+            const response = await ArchiveNote(archivedObj);
+            console.log(response);
+            //getAllNotesResponse(); // Refresh notes after archiving
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    // const handleTrashNote = async (id) => {
+    //     let trashObj = {
+    //         noteId: id,
+    //     };
+    //     console.log(trashObj);
+    //     try {
+    //         const response = await TrashNote(trashObj);
+    //         console.log(response);
+    //         //getAllNotesResponse(); // Refresh notes after trashing
+    //     } catch (error) {
+    //         console.error(error.message);
+    //     }
+    // }
+    const handleTrashNote = async (id) => {
+        try {
+          const response = await TrashNote(id);
+          console.log(response);
+          getAllNotesResponse();
+        } catch (error) {
+          console.error(error.message);
+        }
+      };
 
     return (
         <Box
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
-                flexDirection:'row',
-                padding:'35px',
+                flexDirection: 'row',
+                padding: '35px',
                 flexWrap: 'wrap',
                 '& > :not(style)': {
                     m: 1,
@@ -28,7 +66,7 @@ export default function NoteThree({data}) {
         >
             <div>
                 <Paper elevation={3}>
-                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'5px'}}  className='displaytitle'>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }} className='displaytitle'>
                         <div>
                             {data.title}
                         </div>
@@ -36,16 +74,16 @@ export default function NoteThree({data}) {
                             <IconButton ><PushPinOutlinedIcon /></IconButton>
                         </div>
                     </div>
-                    <div style={{display:'flex', padding:'5px'}} className='displaynote'> 
+                    <div style={{ display: 'flex', padding: '5px' }} className='displaynote'>
                         {data.description}
                     </div>
-                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'5px'}} className='displayicons'>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px' }} className='displayicons'>
                         <div className='NotifiIcon'><IconButton ><NotificationsPausedOutlinedIcon /></IconButton></div>
                         <div className='PersonIcon'><IconButton><PersonAddAltOutlinedIcon /></IconButton></div>
                         <div className='PaletIcon'><IconButton><PaletteOutlinedIcon /></IconButton></div>
-                        <div className='ArchIcon'><IconButton ><ArchiveOutlinedIcon /></IconButton></div>
-                        <div className='DeleteIcon'><IconButton><DeleteOutlinedIcon  /></IconButton></div>
-                        <div className='MoreIcon'><IconButton><MoreVertOutlinedIcon /></IconButton></div>
+                        <div className='ArchIcon'><IconButton onClick={() => handleArchive(data.noteId)} ><ArchiveOutlinedIcon /></IconButton></div>
+                        <div className='DeleteIcon'><IconButton onClick={() => handleTrashNote(data.noteId)} ><DeleteOutlinedIcon /></IconButton></div>
+                        <div className='MoreIcon'><IconButton ><MoreVertOutlinedIcon /></IconButton></div>
                     </div>
                 </Paper>
             </div>

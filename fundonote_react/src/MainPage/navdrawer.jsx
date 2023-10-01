@@ -10,10 +10,34 @@ import LabelIcon from '@mui/icons-material/Label';
 import EditIcon from '@mui/icons-material/Edit';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { DeleteNote } from '../Services/NoteServices';
 
 
 
 export default function MiniDrawer({item}){
+
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+ const handleOpenDailog=()=>{
+    setOpenDialog(true);
+  };
+
+  const handleCloseDailog=()=>{
+    setOpenDialog(false)
+  }
+
+  const handleDeletePermently=async()=>{
+    try{
+      let response=await DeleteNote();
+      console.log("Deleted permently")  
+      console.log(response);
+      handleOpenDailog();
+    } catch (error){
+      console.error(error.message);
+    }
+  };
+
+
   const drawerWidth = 240;
 
   const drawerStyles={
@@ -63,11 +87,11 @@ export default function MiniDrawer({item}){
         </ListItem>
 
         <ListItem>
-          <ListItemIcon>
+          <ListItemIcon  onClick={handleDeletePermently}>
             <DeleteIcon/>
           </ListItemIcon>
           <ListItemText primary="Bin"/>
-        </ListItem>
+        </ListItem> 
       </List>
     </Drawer>
   )

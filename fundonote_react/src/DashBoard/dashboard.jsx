@@ -8,40 +8,67 @@ import { GetAllNotes } from '../Services/NoteServices';
 
 export default function Dashboard() {
 
-    const [item, setItem] = useState(false);
+    //search Bar
+    const [item, setItem] = useState(false); //search bar 
     const menuToggel = () => {
         setItem(!item)
     }
-
+    //Min Drawer and NoteOne NoteTwo toggle 
     const [toggle, setToggle] = useState(true);
+
     const handleToggel = () => {
         setToggle(!toggle)
     };
 
-    const [posts, setPosts] = useState([]);
-    
-    async function getAllNotesResponse() {
-        let response = await GetAllNotes();
-        console.log(response.data.data)
-        console.log("data Fetched")
-        setPosts(response.data.data)
-        
-    }
+    const [noteOption, setNoteOption] = useState("Notes");
+    //Fetch all Notes
+    const [posts, setPosts] = useState([]); 
 
+    async function getAllNotesResponse() {
+
+try {
+            let response = await GetAllNotes();
+            let filterNote = [];
+            if (noteOption === 'Notes') {
+                filterNote = response.data.data.filter(note => !note.Archive && !note.isTash);
+            } else if (noteOption === 'Archive') {
+                filterNote = response.data.data.filter(note => note.Archive && !note.isTash);
+            } else if (noteOption === 'Bin') {
+                filterNote = response.data.data.filter(note => note.isTash);
+            }
+            setPosts(filterNote);
+        } catch (error) {
+            console.error('Error fetching notes:', error);
+            // Handle the error, for example, show an error message to the user
+        }
+    };
     useEffect(() => {
+        console.log("Data called")
         getAllNotesResponse()
-    },[])
+
+        // const autoRefresh=()=>{
+        //     getAllNotesResponse();
+        // };
+        // const refreshTimer = setInterval(autoRefresh, 60000);
+
+        // return ()=>clearInterval(refreshTimer);
+    },[]);
+    // const autoRefresh=()=>{
+    //     getAllNotesResponse()
+    // }
+
+
     return (
         <div>
             <SearchAppBar item={item} setItem={menuToggel} />
             <MiniDrawer item={item} />
             {
-                toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
+                toggle ? <NoteOne  handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
             }
             { 
                 //   posts.map((data) => (<NoteThree key={data.id} data={data}/>))  
-                  posts.map((data) => (<NoteThree data={data} getAllNotesResponse={getAllNotesResponse}/>))      
-                
+                  //posts.map((data) => (<NoteThree autoRefresh={autoRefresh} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
+                  posts.map((data) => (<NoteThree  key={data.id} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
             }
         </div>
     )

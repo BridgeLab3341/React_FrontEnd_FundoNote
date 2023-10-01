@@ -5,9 +5,9 @@ import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, MoreVertOutlined, No
 import { NoteCreate } from "../../Services/NoteServices";
 
 
-export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
+export default function TakeNoteTwo({ handleToggel,props }) {
 
-  const [input, setInput] = useState({ title: '', description: ''});
+  const [input, setInput] = useState({ title: '', description: '', bgColor: '',Archive: false,isTash: false});
 
   // useEffect(()=>{
   //   console.log(input.title);
@@ -24,26 +24,28 @@ export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
     setInput({ ...input, description: value });
   };
 
- // const [sendData,setSendData]=useState([]);
+  const handleArchiveNote=(e)=>{
+    input(prevState=>({
+      ...prevState,
+      Archive:true,
+    }))
+    console.log("Note is Archived");
+  }
 
-  const handleClose = async(e) => {
+  const handleClose = async() => {
     handleToggel(true)
     //console.log(input);
     console.log("input");
-    console.log(input);
-    if (input != null && input.title != null) {
+    if (input.title !== null) {
       const response =await NoteCreate(input)
       console.log(response);
-
-      // const newData=response.data.data;
-      // const updatedSendData =[...sendData,newData];
-      // setSendData(updatedSendData);
-
       console.log("creating note");
-      // getAllNotesResponse();
+      //props.autoRefresh();
+       //getAllNotesResponse();
     }
+      //getAllNotesResponse();
   }
-  console.log(input);
+  // console.log(input);
 
   return (
     <Box sx={{
@@ -125,7 +127,7 @@ export default function TakeNoteTwo({ handleToggel,getAllNotesResponse }) {
           <IconButton aria-label="Image">
             <ImageOutlined />
           </IconButton>
-          <IconButton aria-label="Archive">
+          <IconButton aria-label="Archive" onClick={handleArchiveNote}>
             <ArchiveOutlined />
           </IconButton>
           <IconButton aria-label="More Options">
