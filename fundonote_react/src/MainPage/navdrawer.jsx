@@ -10,43 +10,70 @@ import LabelIcon from '@mui/icons-material/Label';
 import EditIcon from '@mui/icons-material/Edit';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { DeleteNote } from '../Services/NoteServices';
+import { ArchiveNote, DeleteNote, TrashNote } from '../Services/NoteServices';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 
 
-export default function MiniDrawer({item}){
+export default function MiniDrawer({ item, handleNoteUpdate }) {
 
   const [openDialog, setOpenDialog] = React.useState(false);
 
- const handleOpenDailog=()=>{
+  const handleOpenDailog = () => {
     setOpenDialog(true);
   };
 
-  const handleCloseDailog=()=>{
+  const handleCloseDailog = () => {
     setOpenDialog(false)
   }
 
-  const handleDeletePermently=async()=>{
-    try{
-      let response=await DeleteNote();
-      console.log("Deleted permently")  
+  const handleDeletePermently = async () => {
+    try {
+      let response = await DeleteNote();
+      console.log("Deleted permently")
       console.log(response);
-      handleOpenDailog();
-    } catch (error){
+      handleNoteUpdate();
+      handleCloseDailog();
+    } catch (error) {
       console.error(error.message);
     }
   };
 
+  // const handleArchivePer = async () => {
+  //   try {
+  //     let response = await ArchiveNote();
+  //     console.log(response);
+  //     handleNoteUpdate();
+  //     handleCloseDailog();
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   }
+  // }
 
   const drawerWidth = 240;
 
-  const drawerStyles={
-    width:item? drawerWidth:'60px',
-    flexShrink:0,
-    whiteSpace:'nowrap',
-    transition:'width 0.3s',
-    marginTop:'70px'
+  const drawerStyles = {
+    width: item ? drawerWidth : '60px',
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    transition: 'width 0.3s',
+    marginTop: '70px'
   };
+
+  const [trahedNotes, setTrashedNote] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchTrashedNotes() {
+      try {
+        const response = await TrashNote();
+        setTrashedNote(response.data);
+      } catch (error) {
+        console.error('Error fetching trashed notes', error);
+      }
+    }
+    fetchTrashedNotes();
+  }, []);
+
 
   return(
     <Drawer variant='permanent' open={item} PaperProps={{style:drawerStyles}}>
@@ -86,13 +113,30 @@ export default function MiniDrawer({item}){
           <ListItemText primary="Archive"/>
         </ListItem>
 
-        <ListItem>
-          <ListItemIcon  onClick={handleDeletePermently}>
+        <ListItem onClick={handleOpenDailog} >
+          <ListItemIcon>
             <DeleteIcon/>
           </ListItemIcon>
           <ListItemText primary="Bin"/>
         </ListItem> 
       </List>
-    </Drawer>
+    
+        <Dialog open={openDialog} onClose={handleCloseDailog}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to permanently delete this note?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDailog} color='primary'>
+            Cancel
+          </Button>
+          <Button onClick={handleDeletePermently} color='primary'>
+            Delete
+          </Button>
+        </DialogActions>
+        </Dialog>
+      </Drawer>
   )
 }

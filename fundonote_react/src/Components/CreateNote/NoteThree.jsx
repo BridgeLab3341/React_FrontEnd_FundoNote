@@ -11,7 +11,7 @@ import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
 import { ArchiveNote, TrashNote } from '../../Services/NoteServices';
 import './NoteStyles.css'
 
-export default function NoteThree({ data, getAllNotesResponse }) {
+export default function NoteThree({ data, handleNoteUpdate }) {
 
     const handleArchive = async (id) => {
         let archivedObj = {
@@ -21,7 +21,7 @@ export default function NoteThree({ data, getAllNotesResponse }) {
         try {
             const response = await ArchiveNote(archivedObj);
             console.log(response);
-            getAllNotesResponse(); // Refresh notes after archiving
+            handleNoteUpdate(data); // Refresh notes after archiving
         } catch (error) {
             console.error(error.message);
         }
@@ -35,17 +35,18 @@ export default function NoteThree({ data, getAllNotesResponse }) {
         try {
             const response = await TrashNote(trashObj);
             console.log(response);
-            getAllNotesResponse(); // Refresh notes after trashing
+            handleNoteUpdate(data); // Refresh notes after trashing
         } catch (error) {
             console.error(error.message);
         }
     }
     return (
         
-        <Box
+        <Box className="Note3Box"
             sx={{
                  display: 'flex',
                  justifyContent:'center',
+                //  flexDirection: 'row',
                 flexWrap:'wrap',
                 padding: '35px',
                 '& > :not(style)': {

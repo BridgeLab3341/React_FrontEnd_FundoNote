@@ -23,6 +23,7 @@ export default function Dashboard() {
     const [noteOption, setNoteOption] = useState("Notes");
     //Fetch all Notes
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     async function getAllNotesResponse() {
 
@@ -38,6 +39,8 @@ export default function Dashboard() {
                 filterNote = response.data.data.filter(note => note.trash);
             }
             setPosts(filterNote);
+            setLoading(false);
+            //setPosts(prevState=>[...prevState,newNote])
         } catch (error) {
             console.error('Error fetching notes:', error);
             // Handle the error, for example, show an error message to the user
@@ -53,10 +56,13 @@ export default function Dashboard() {
         // const refreshTimer = setInterval(autoRefresh, 60000);
 
         // return ()=>clearInterval(refreshTimer);
-    }, []);
+    }, [noteOption]);
     // const autoRefresh=()=>{
     //     getAllNotesResponse()
     // }
+    const handleNoteUpdate = () => {
+        getAllNotesResponse();
+    };
 
 
     return (
@@ -69,7 +75,7 @@ export default function Dashboard() {
             {
                 //   posts.map((data) => (<NoteThree key={data.id} data={data}/>))  
                 //posts.map((data) => (<NoteThree autoRefresh={autoRefresh} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
-                posts.map((data) => (<NoteThree key={data.id} data={data} getAllNotesResponse={getAllNotesResponse} />))
+                posts.map((data) => (<NoteThree key={data.id} data={data} handleNoteUpdate={handleNoteUpdate} />))
             }
         </div>
     )

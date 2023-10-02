@@ -161,7 +161,7 @@ function SignUp() {
                                 <a href="./">sign in instead</a>
                             </div>
                             <div className="button">
-                                <Button onClick={verifySignUpData} variant="outlined">Next</Button>
+                                <Button href="/dashboard" onClick={verifySignUpData} variant="outlined">Next</Button>
                             </div>
                         </div>
                     </div>

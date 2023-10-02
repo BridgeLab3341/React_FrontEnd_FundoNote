@@ -5,14 +5,9 @@ import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, MoreVertOutlined, No
 import { NoteCreate } from "../../Services/NoteServices";
 
 
-export default function TakeNoteTwo({ handleToggel,props }) {
+export default function TakeNoteTwo({ handleToggel,handleNoteUpdate }) {
 
   const [input, setInput] = useState({ title: '', description: '', bgColor: '',archive: false,trash: false});
-
-  // useEffect(()=>{
-  //   console.log(input.title);
-  //   console.log(input.description);
-  // },[input])
 
   const handleTitle = (e) => {
     const value = e.target.value;
@@ -36,14 +31,14 @@ export default function TakeNoteTwo({ handleToggel,props }) {
     handleToggel(true)
     //console.log(input);
     console.log("input");
-    if (input.title !== null) {
+    if (input.title.trim() !== '' || input.description.trim() !== '') {
       const response =await NoteCreate(input)
       console.log(response);
-      console.log("creating note");
-      //props.autoRefresh();
-       //getAllNotesResponse();
+      console.log("created note");
     }
-      //getAllNotesResponse();
+    else{
+      console.log("Title or description is empty")
+    }
   }
   // console.log(input);
 

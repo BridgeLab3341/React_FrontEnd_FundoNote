@@ -15,10 +15,14 @@
     display: flex;
     justify-content: space-around;
 }
-.css-kzgjy9 {
+
+.Note3Box.MuiBox-root.css-kzgjy9 {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
+    flex-wrap: wrap;
     align-content: center;
     justify-content: center;
-    }
+    align-items: center;
+    padding: 5px;
+    margin: 4px 111px 13px 130px;
+}
