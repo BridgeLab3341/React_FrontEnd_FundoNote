@@ -1,0 +1,9 @@
+.wrap{
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    padding-left: 9%;
+}

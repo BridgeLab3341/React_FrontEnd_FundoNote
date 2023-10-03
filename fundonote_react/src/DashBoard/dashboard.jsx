@@ -5,6 +5,7 @@ import NoteOne from '../Components/CreateNote/NoteOne';
 import TakeNoteTwo from '../Components/CreateNote/NoteTwo';
 import NoteThree from '../Components/CreateNote/NoteThree';
 import { GetAllNotes } from '../Services/NoteServices';
+import "./DashBoard.css"
 
 export default function Dashboard() {
 
@@ -19,64 +20,50 @@ export default function Dashboard() {
     const handleToggel = () => {
         setToggle(!toggle)
     };
+    //
+    // const listenDrawer=(options)=>{
+    //     setNoteOption(options)
+    // }
 
+        //Fetch all Notes
     const [noteOption, setNoteOption] = useState("Notes");
-    //Fetch all Notes
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
 
-    async function getAllNotesResponse() {
+    const getAllNotesResponse= async()=> {
 
-        try {
             let response = await GetAllNotes();
             console.log(response.data.data);
             let filterNote = [];
             if (noteOption === 'Notes') {
-                filterNote = response.data.data.filter(note => note.archive == false && note.trash == false);
+                filterNote = response.data.data.filter(note => note.archive === false && note.trash === false);
+                setPosts(filterNote);
             } else if (noteOption === 'archive') {
-                filterNote = response.data.data.filter(note => note.archive && !note.trash);
-            } else if (noteOption === 'Bin') {
-                filterNote = response.data.data.filter(note => note.trash);
+                filterNote = response.data.data.filter(note => note.archive === true && note.trash === false);
+                setPosts(filterNote);
+            } else if (noteOption === 'trash') {
+                filterNote = response.data.data.filter(note => note.archive === false && note.trash === true);
+                setPosts(filterNote);
             }
-            setPosts(filterNote);
-            setLoading(false);
-            //setPosts(prevState=>[...prevState,newNote])
-        } catch (error) {
-            console.error('Error fetching notes:', error);
-            // Handle the error, for example, show an error message to the user
-        }
     };
     useEffect(() => {
         console.log("Data called")
         getAllNotesResponse()
-
-        // const autoRefresh=()=>{
-        //     getAllNotesResponse();
-        // };
-        // const refreshTimer = setInterval(autoRefresh, 60000);
-
-        // return ()=>clearInterval(refreshTimer);
     }, [noteOption]);
-    // const autoRefresh=()=>{
-    //     getAllNotesResponse()
-    // }
-    const handleNoteUpdate = () => {
-        getAllNotesResponse();
-    };
+    console.log(noteOption)
 
 
     return (
-        <div>
+        <div >
             <SearchAppBar item={item} setItem={menuToggel} />
-            <MiniDrawer item={item} />
+            <MiniDrawer item={item}  setNoteOption={setNoteOption}/>
             {
-                toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} />
+                toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} getAllNotesResponse={getAllNotesResponse}/>
             }
+            <div className='wrap'>
             {
-                //   posts.map((data) => (<NoteThree key={data.id} data={data}/>))  
-                //posts.map((data) => (<NoteThree autoRefresh={autoRefresh} data={data} getAllNotesResponse={getAllNotesResponse}/>))      
-                posts.map((data) => (<NoteThree key={data.id} data={data} handleNoteUpdate={handleNoteUpdate} />))
+                posts.map((data) => (<NoteThree key={data.id} data={data} getAllNotesResponse={getAllNotesResponse} />))
             }
+            </div>
         </div>
     )
 }

@@ -8,10 +8,10 @@ import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
 import NotificationsPausedOutlinedIcon from '@mui/icons-material/NotificationsPausedOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PaletteOutlinedIcon from '@mui/icons-material/PaletteOutlined';
-import { ArchiveNote, TrashNote } from '../../Services/NoteServices';
+import { ArchiveNote, DeleteNote, TrashNote } from '../../Services/NoteServices';
 import './NoteStyles.css'
 
-export default function NoteThree({ data, handleNoteUpdate }) {
+export default function NoteThree({ data, getAllNotesResponse }) {
 
     const handleArchive = async (id) => {
         let archivedObj = {
@@ -21,7 +21,7 @@ export default function NoteThree({ data, handleNoteUpdate }) {
         try {
             const response = await ArchiveNote(archivedObj);
             console.log(response);
-            handleNoteUpdate(data); // Refresh notes after archiving
+            getAllNotesResponse(data); // Refresh notes after archiving
         } catch (error) {
             console.error(error.message);
         }
@@ -35,11 +35,26 @@ export default function NoteThree({ data, handleNoteUpdate }) {
         try {
             const response = await TrashNote(trashObj);
             console.log(response);
-            handleNoteUpdate(data); // Refresh notes after trashing
+            getAllNotesResponse(data); // Refresh notes after trashing
         } catch (error) {
             console.error(error.message);
         }
     }
+    
+    const handleDeleteTrash=async(id)=>{
+        let deleteobj={
+            noteId:id,
+        };
+        console.log(deleteobj);
+        try{
+            const response=await DeleteNote(deleteobj);
+            console.log(response);
+            getAllNotesResponse(data);
+        }catch(error){
+            console.error(error.message);
+        }
+    }
+
     return (
         
         <Box className="Note3Box"
@@ -73,7 +88,7 @@ export default function NoteThree({ data, handleNoteUpdate }) {
                         <div className='PersonIcon'><IconButton><PersonAddAltOutlinedIcon /></IconButton></div>
                         <div className='PaletIcon'><IconButton><PaletteOutlinedIcon /></IconButton></div>
                         <div className='ArchIcon'><IconButton onClick={() => handleArchive(data.noteId)} ><ArchiveOutlinedIcon /></IconButton></div>
-                        <div className='DeleteIcon'><IconButton onClick={() => handleTrashNote(data.noteId)} ><DeleteOutlinedIcon /></IconButton></div>
+                        <div className='DeleteIcon'><IconButton onClick={() =>{data.trash ===true ? handleDeleteTrash(data.noteId) : handleTrashNote(data.noteId)}} ><DeleteOutlinedIcon /></IconButton></div>
                         <div className='MoreIcon'><IconButton ><MoreVertOutlinedIcon /></IconButton></div>
                     </div>
                 </Paper>

@@ -9,8 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AppsIcon from '@mui/icons-material/Apps';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Keep from '../assets/Keep.png';
 import { Menu, MenuItem, TextField, colors } from '@mui/material';
@@ -25,7 +23,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '100%',
+  width: '80%',
   padding: '0.5%',
   paddingRight: '290px',
   [theme.breakpoints.up('sm')]: {
@@ -36,7 +34,7 @@ const Search = styled('div')(({ theme }) => ({
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  paddingBottom: '8%',
+  paddingBottom: '15px',
   height: '100%',
   position: 'absolute',
   pointerEvents: 'none',
@@ -111,7 +109,7 @@ export default function SearchAppBar(props) {
           <h3 style={{ color: "grey", marginTop: '0px', marginLeft: '3px', fontSize: '22px' }}>FundoNote</h3>
         </Typography>
         <Search>
-          <SearchIconWrapper >
+          <SearchIconWrapper style={{display:'flex', justifyContent:'center'}} >
             {/* <StyledInputBase/> */}
             <SearchIcon />
           </SearchIconWrapper>
@@ -123,6 +121,7 @@ export default function SearchAppBar(props) {
               justifyItems: 'center',
               alignContent: 'center',
               color: 'black',
+              paddingRight:'99px',
             }} />
           {/* <StyledInputBase style={{ display:'flex', color:"black", marginRight:'25px', color:'grey',}}/> 
                <InputBase style={{color:"grey", alignItems:"start" }} id="fName" label="First Name" >placeholder='Search'</InputBase> */}

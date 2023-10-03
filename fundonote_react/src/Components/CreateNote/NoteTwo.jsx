@@ -1,14 +1,32 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState ,useEffect, useRef} from "react";
 import { Button, IconButton, Paper, TextField } from "@mui/material";
 import Box from '@mui/material/Box';
 import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, MoreVertOutlined, NotificationAddOutlined, PushPinOutlined, RedoOutlined, UndoOutlined } from '@mui/icons-material';
 import { NoteCreate } from "../../Services/NoteServices";
 
 
-export default function TakeNoteTwo({ handleToggel,handleNoteUpdate }) {
+export default function TakeNoteTwo(props) {
 
   const [input, setInput] = useState({ title: '', description: '', bgColor: '',archive: false,trash: false});
 
+  const { handleToggel,getAllNotesResponse }=props
+  // Create a ref for the title input element
+  // const titleInputRef= useRef(null);
+
+  // useEffect(() => {
+  //   const handleTitleInputChange = (e) => {
+  //     const value = e.target.value;
+  //     setInput({ ...input, title: value });
+  //   };
+
+  //   titleInputRef.current.addEventListener('input', handleTitleInputChange);
+
+  //   return () => {
+  //     titleInputRef.current.removeEventListener('input', handleTitleInputChange);
+  //   };
+  // }, [input]);
+  
+  //////////////////////
   const handleTitle = (e) => {
     const value = e.target.value;
     setInput({ ...input, title: value });
@@ -30,11 +48,12 @@ export default function TakeNoteTwo({ handleToggel,handleNoteUpdate }) {
   const handleClose = async() => {
     handleToggel(true)
     //console.log(input);
-    console.log("input");
+    console.log("input", getAllNotesResponse);
     if (input.title.trim() !== '' || input.description.trim() !== '') {
       const response =await NoteCreate(input)
       console.log(response);
       console.log("created note");
+      getAllNotesResponse();
     }
     else{
       console.log("Title or description is empty")
@@ -67,7 +86,7 @@ export default function TakeNoteTwo({ handleToggel,handleNoteUpdate }) {
       >
         <div style={{
           display: 'flex',
-          alignItems: 'start',
+          alignItems: 'center',
           justifyContent: 'space-between',
           // marginBottom: '10px', 
         }}>
@@ -75,6 +94,7 @@ export default function TakeNoteTwo({ handleToggel,handleNoteUpdate }) {
             variant='standard'
             placeholder="Title..."
             value={input.title}
+            //inputRef={titleInputRef}
             onChange={handleTitle}
             InputProps=
             {{
@@ -84,6 +104,8 @@ export default function TakeNoteTwo({ handleToggel,handleNoteUpdate }) {
                 outline: 'none',
                 width: '100%',
                 textDecoration: 'none',
+                display:'flex',
+                alignItems:'center',
               },
             }}
           /><IconButton aria-label="pin Note">

@@ -26,7 +26,7 @@ export const GetAllNotes = async () => {
 }
 
 export const DeleteNote = async (delteNoteobj) => {
-    let response = await axios.delete(`https://localhost:44381/api/Note/DeleteNote/noteId=${delteNoteobj.noteId}`, delteNoteobj.noteId, {
+    let response = await axios.delete(`https://localhost:44381/api/Note/DeleteNote?noteId=${delteNoteobj.noteId}`,{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${JWTToken}`,
