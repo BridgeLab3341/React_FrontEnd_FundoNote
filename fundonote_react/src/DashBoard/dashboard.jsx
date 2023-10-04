@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import SearchAppBar from '../MainPage/header';
-import MiniDrawer from '../MainPage/navdrawer';
+import Header from '../MainPage/header';
+import NavDrawer from '../MainPage/navdrawer';
 import NoteOne from '../Components/CreateNote/NoteOne';
-import TakeNoteTwo from '../Components/CreateNote/NoteTwo';
+import NoteTwo from '../Components/CreateNote/NoteTwo';
 import NoteThree from '../Components/CreateNote/NoteThree';
 import { GetAllNotes } from '../Services/NoteServices';
 import "./DashBoard.css"
@@ -54,10 +54,10 @@ export default function Dashboard() {
 
     return (
         <div >
-            <SearchAppBar item={item} setItem={menuToggel} />
-            <MiniDrawer item={item}  setNoteOption={setNoteOption}/>
+            <Header item={item} setItem={menuToggel} />
+            <NavDrawer item={item}  setNoteOption={setNoteOption}/>
             {
-                toggle ? <NoteOne handleToggel={handleToggel} /> : <TakeNoteTwo handleToggel={handleToggel} getAllNotesResponse={getAllNotesResponse}/>
+                toggle ? <NoteOne handleToggel={handleToggel} /> : <NoteTwo handleToggel={handleToggel} getAllNotesResponse={getAllNotesResponse}/>
             }
             <div className='wrap'>
             {

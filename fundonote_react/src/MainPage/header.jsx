@@ -23,7 +23,7 @@ const Search = styled('div')(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  width: '80%',
+  width: '10%',
   padding: '0.5%',
   paddingRight: '290px',
   [theme.breakpoints.up('sm')]: {
@@ -52,12 +52,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '60ch',
+      width: '58ch',
     },
   },
 }));
 
-export default function SearchAppBar(props) {
+export default function Header(props) {
 
   const { item, setItem } = props
   const menuToggle = (event) => {

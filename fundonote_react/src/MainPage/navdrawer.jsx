@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-export default function MiniDrawer({ item,setNoteOption}) {
+export default function NavDrawer({ item,setNoteOption}) {
 
   const drawerWidth = 180;
 

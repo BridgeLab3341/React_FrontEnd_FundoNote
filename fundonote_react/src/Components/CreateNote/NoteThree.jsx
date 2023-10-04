@@ -61,7 +61,6 @@ export default function NoteThree({ data, getAllNotesResponse }) {
             sx={{
                  display: 'flex',
                  justifyContent:'center',
-                //  flexDirection: 'row',
                 flexWrap:'wrap',
                 padding: '35px',
                 '& > :not(style)': {

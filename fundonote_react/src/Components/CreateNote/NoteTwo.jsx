@@ -5,7 +5,7 @@ import { ArchiveOutlined, ColorLensOutlined, ImageOutlined, MoreVertOutlined, No
 import { NoteCreate } from "../../Services/NoteServices";
 
 
-export default function TakeNoteTwo(props) {
+export default function NoteTwo(props) {
 
   const [input, setInput] = useState({ title: '', description: '', bgColor: '',archive: false,trash: false});
 
